@@ -1,0 +1,396 @@
+openapi: 3.0.3
+info:
+  title: Telefonía Api
+  description: Api para gestión de reservaciones de un gimnasio
+  version: 1.0.0
+  contact:
+    name: Telefonía Api
+    email: ejemplo@ejemplo.com
+    # Dos operaciones get una coordenadas y otra dirección - Listo
+    # Operaciones con clientes
+
+tags:
+  - name: Telefonia
+    description: Operaciones relacionadas con la entrega del Servicio de Telefonía
+  - name: Cliente
+    description: Operaciones relacionadas con el cliente
+
+servers:
+  # Consulta de cobertura por coordenadas - dirección.
+  /api/telefonia/coords:
+    # Servicio de telefonía
+    get:
+      tags:
+        - Telefonia
+      summary: Consulta de servicio dadas coordenadas específicas
+      description: Verifica si el servicio de tecnología cuenta con cobertura en las coordenadas dadas
+      operationId: getTelefoniaByCoords
+      parameters:
+        - name: api_key
+          in: header
+          description: Token de autorización de uso del API 
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenAuthorization'
+        - name: lon
+          in: query
+          description: Longitud de las coordenadas a buscar
+          required: true
+          schema:
+            type: float
+            example: 20.5
+        - name: lat
+          in: query
+          description: Latitud de las coordenadas a buscar
+          required: true
+          schema:
+            type: float
+            example: -100.5
+      responses:
+        '200':
+          description: Solicitud procesada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Recurso no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  /api/telefonia/direc:
+    get:
+      tags:
+        - Telefonia
+      summary: Consulta de servicio dada una dirección específica
+      description: Verifica si el servicio de tecnología cuenta con cobertura en la dirección dada (CP, Mpio, Edo)
+      operationId: getTelefoniaByDirec
+      parameters:
+        - name: api_key
+          in: header
+          description: Token de autorización de uso del API 
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenAuthorization'
+        - name: cp
+          in: query
+          description: Código postal de la dirección
+          required: true
+          schema:
+            type: string
+            lenght: 5
+            example: "76087"
+        - name: mpio
+          in: query
+          description: Municipio de la dirección
+          required: true
+          schema:
+            type: string
+            example: "Querétaro"
+        - name: edo
+          in: query
+          description: Estado Federal de la dirección
+          required: true
+          schema:
+            type: string
+            example: "Querétaro"
+      responses:
+        '200':
+          description: Solicitud procesada exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Recurso no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+  # Clientes
+  /api/client:
+    get:
+      tags: Cliente
+      summary: Operacion get para obtener los clientes
+      description: Obtiene una lista con todos los clientes
+      operationId: getClients
+      parameters:
+        - name: api_key
+          in: header
+          description: Token de autorización para el uso del API
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenAuthorization'
+      responses:
+        '200':
+          description: Lista de usuarios obtenida con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClienteDTO'
+        '404':
+          description: No se encontró ningun usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    post:
+      tags: Cliente
+      summary: Operación post para crear un cliente
+      description: Registra un cliente en el sistema
+      operationId: postClient
+      parameters:
+        - name: api_key
+          in: header
+          description: Token de autrización de uso del API
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenAuthorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteDTO'
+      responses:
+        '201':
+          description: Cliente creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+
+  /api/client/{id}:
+    get:
+      tags:
+        - Cliente
+      summary: Obtener un cliente por id
+      description: Obtiene los datos de un cliente dado un id
+      operationId: getClientById
+      parameters:
+        - name: api_key
+          in: header
+          description: Token de autorizaciónde uso del API
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenAuthorization'
+        - name: idClient
+          in: path
+          required: true
+          description: ID único del cliente
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Cliente encontrado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteDTO'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+    put:
+          tags:
+            - Cliente
+          summary: Actualizar un cliente
+          description: Esta operación actualiza la información de cliente dado un id y un cuerpo
+          operationId: putClientById
+          parameters:
+            - name: api_key
+              in: header
+              description: Token de autorización de uso del API
+              required: true
+              schema:
+                $ref: '#/components/schemas/TokenAuthorization'
+            - name: idClient
+              in: path
+              description: ID único del cliente a actualizar
+              required: true
+              schema:
+                type: integer
+                example: 1
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ClienteDTO'
+          responses:
+            '200':
+              description: Operación exitosa
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ApiResponse'
+            '404':
+              description: Usuario no encontrado
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ApiResponse'
+            '500':
+              description: Error interno del servidor
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ApiResponse'
+    delete:
+      tags:
+        - Cliente
+      summary: Eliminar un cliente
+      description: Operación que elimina un cliente del sistema dado un id
+      operationId: deleteClientById
+      parameters:
+        - name: api_key
+          in: header
+          description: Token de autorización de uso del API
+          required: true
+          schema:
+            $ref: '#/components/schemas/TokenAuthorization'
+        - name: idClient
+          in: path
+          description: ID del cliente a eliminar
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+                
+components:
+  schemas:
+    TokenAuthorization:
+      description: token de autorización de uso de la api
+      type: string
+      example: 97czXdXt76ti9Til2S70cdmwtbLWApcsfad98FrTy8d7adsf6
+    ApiResponse: 
+      description: Código de respuesta del servidor.
+      type: object 
+      required:
+        - code
+        - message 
+      properties: 
+        code: 
+          type: string 
+          description: Código de respuesta retornada por el servidor. 
+          lenght: 3 
+          example: "200"
+        message: 
+          type: string 
+          description: Mensaje informativo retornado por el servicio. 
+          minLength: 1 
+          maxLength: 100 
+          example: "Si hay cobertura."
+    DireccionDTO:
+      description: Estructura de datos que contiene una dirección
+      type: object
+      properties:
+        cp:
+          description: Código postal de la dirección
+          type: string
+          lenght: 5
+          example: "76087"
+        mpio:
+          description: Municipio de la dirección
+          type: string
+          example: "Querétaro"
+        edo:
+          description: Estado Federal de la dirección
+          type: string
+          example: "Querétaro"
+    ClienteDTO:
+      description: DTO que contiene las características de un cliente
+      type: object
+      required:
+        - id
+        - nombre
+        - direccion # Es como si tuviera un json dentro de un json {id = x, dir={cp=1, edo=x}}
+      properties:
+        id:
+          type: integer
+          description: ID único de identificación para el cliente
+          example: 1
+        nombre:
+          type: string
+          description: Nombre del cliente
+          example: "Marco"
+        direccion:
+          type: object
+          description: Dirección del cliente, donde se provee el servicio
+          example:
+            schema:
+              $ref: '#/components/schemas/DireccionDTO'

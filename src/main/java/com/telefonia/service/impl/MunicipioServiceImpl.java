@@ -1,0 +1,29 @@
+package com.telefonia.service.impl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.telefonia.Entities.Municipio;
+import com.telefonia.persistence.IMunicipioDAO;
+import com.telefonia.service.IMunicipioService;
+
+@Service
+public class MunicipioServiceImpl implements IMunicipioService {
+
+    @Autowired
+    private IMunicipioDAO municipioDAO;
+
+    @Override
+    public List<Municipio> findAll() {
+        return municipioDAO.findAll();
+    }
+
+    @Override
+    public Optional<Municipio> findById(Integer id) {
+        return municipioDAO.findById(id);
+    }
+    
+}
