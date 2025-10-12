@@ -24,7 +24,7 @@ import com.telefonica.pubsub.broker.repository.PeticionRepository;
 // La anotación @Service le dice a Spring Boot:
 // “Registra esta clase como un servicio para que pueda ser usada en otros lugares”.
 @Service
-public class BrokerServiceImpl implements BrokerService {
+public class BrokerServiceBusiness implements BrokerService {
 	
 	@Autowired
     private PeticionRepository peticionRepository;
