@@ -114,11 +114,7 @@ public class DireccionController {
         }
         return ResponseEntity.notFound().build();
     }
-    /**
-     * Funciones que regresan un estado, municipio o colonia dado un nombre
-     * @param id
-     * @return 
-    */
+
     
 
 

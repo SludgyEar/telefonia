@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/telefonia")
 public class TelefoniaController {
+    // Sin uso 
     
     @GetMapping("/coords")
     public ResponseEntity<?> getTelefoniaByCoords(@RequestParam float lon, @RequestParam float lat){

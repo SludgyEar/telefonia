@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClienteDTO {
+    // Sin uso
     private int id;
     private String nombre;
     private DireccionDTO direccion;

@@ -12,7 +12,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DireccionDTO {
-    private String cp;
-    private String mpio;
-    private String edo;
+    /**
+     * Cuando un usuario quiere hacer una petición de cobertura tiene que mandar su información
+     * de dirección la cual contiene los siguientes campos para agilizar la búsqueda.
+     */
+    private String colonia;
+    private String codigoPostal;
+    private String municipio;
+    private String estado;
 }

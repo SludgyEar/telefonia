@@ -19,6 +19,7 @@ import com.telefonia.controllers.dto.ClienteDTO;
 @RequestMapping("/api/client")
 public class ClienteController {
     // TODO validar todo alv
+    // Sin uso
     @GetMapping()   // Operaciones que se mapea directamente con /api/client
     public ResponseEntity<?> getClients(){
         return ResponseEntity.ok().body("Hay te van todos los clientes");
