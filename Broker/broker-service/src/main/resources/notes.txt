@@ -1,0 +1,54 @@
+El flujo del trabajo para el broker es el siguiente:
+
+com.telefonia.broker
+├── controller/Endpoint
+│   ├── ClienteController.java -- MANEJO DE PETICIONES HTTP
+│   └── PublisherController.java -- MANEJO DE PETICIONES HTTP
+├── service
+│   ├── BrokerService.java -- MANEJO DE VALIDACIONES (NO INCLUYE LA LOGICA DEL NEGOCIO)
+│   └── BrokerServiceImpl.java -- 
+├── dto -- Define qué estructura JSON entra y sale en los endpoints.
+│   ├── ClienteRequestDTO.java
+│   ├── ClienteResponseDTO.java
+│   ├── PublisherRequestDTO.java
+│   ├── PublisherResponseDTO.java
+├── model -- Representara la tabla en la base de datos.
+│   └── Peticion.java
+├── repository -- Interactúa con MySQL usando JPA. (findByIdPeticion(), save())
+│   └── PeticionRepository.java
+└── BrokerTelefoniaApplication.java
+
+Se necesita lo siguiente para que este broker funcione:
+==> mysql 8.0 para tabla con id peticion, ip cliente, id cliente
+
+
+Posible tablas (para pruebas)
+
+CREATE TABLE peticion (
+  id_peticion INT AUTO_INCREMENT PRIMARY KEY,
+  id_cliente VARCHAR(50),
+  ip_cliente VARCHAR(50),
+  json_data TEXT,
+  estado VARCHAR(20) DEFAULT 'PENDIENTE'
+);
+
+
+
+Funcion de la clase BROKEN SERVICE con BROKEN SERVICE IMPLEMENT:
+
+BrokerService → es una interfaz (una promesa o contrato).
+No hace nada por sí sola. Solo define qué métodos existen.
+
+BrokerServiceImpl → es una clase que cumple esa promesa, es decir, la implementación real del servicio.
+
+El Controller usa BrokerService, pero Spring le da automáticamente la implementación (BrokerServiceImpl).
+
+
+
+Aquí no hacemos un new BrokerServiceImpl() ni nada.
+Spring Boot automáticamente detecta que:
+	- Existe una interfaz llamada BrokerService.
+	- Existe una clase (BrokerServiceImpl) que la implementa.
+	- Como tiene la anotación @Service, Spring crea una instancia de ella (en memoria).
+	-Cuando ve @Autowired, Spring inyecta esa instancia aquí:
+
