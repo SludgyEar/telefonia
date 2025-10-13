@@ -9,5 +9,5 @@ public interface IClienteService {
     // Contiene los mismos métodos que la interfaz DAO
     List<Cliente> findAll();
 
-    Optional<Cliente> findById(Short id);
+    Optional<Cliente> findById(Integer id);
 }

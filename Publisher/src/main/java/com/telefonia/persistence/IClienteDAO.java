@@ -12,5 +12,5 @@ public interface IClienteDAO {   // Métodos generados por JPA
     
     List<Cliente> findAll(); // Método que obtiene todos los clientes
 
-    Optional<Cliente> findById(Short id);   // Método que obtiene un cliente por ID
+    Optional<Cliente> findById(Integer id);   // Método que obtiene un cliente por ID
 }

@@ -29,7 +29,7 @@ public class Contrato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contrato_id")
-    private Short contratoId;
+    private Integer contratoId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)

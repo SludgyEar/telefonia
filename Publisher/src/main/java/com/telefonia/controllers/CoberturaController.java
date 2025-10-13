@@ -1,19 +1,46 @@
 package com.telefonia.controllers;
 
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.telefonia.controllers.dto.CoberturaRequestDTO;
-import com.telefonia.controllers.dto.DireccionDTO;
+import com.telefonia.controllers.dto.CoberturaResponseDTO;
+import com.telefonia.service.ICoberturaService;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
+
+
+
 
 
 @RestController
 @RequestMapping("/api/cobertura")
 public class CoberturaController {
+    
+    @Autowired
+    private ICoberturaService coberturaService;
+    
+    @PostMapping("/consultar")
+    public ResponseEntity<CoberturaResponseDTO> consultarCobertura(@RequestBody CoberturaRequestDTO request){
+        
+        CoberturaResponseDTO response = coberturaService.consultarCobertura(request);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/consultar-async")
+    public CompletableFuture<ResponseEntity<CoberturaResponseDTO>> consultarCoberturaAsync(
+        @Valid @RequestBody CoberturaRequestDTO requestDTO) {
+            
+            return coberturaService.consultarCoberturaAsync(requestDTO)
+            .thenApply(ResponseEntity::ok);
+        }
+    }    
     /*
         *         PUT : ACTUALIZAR
         *         POST: RECIBIR SOLICITUDES DE DISPONIBILIDAD
@@ -27,17 +54,3 @@ public class CoberturaController {
         *         peticiones para responderlas conforme estén disponibles.
      * 
      */
-    @PostMapping()
-    public ResponseEntity<?> getCoberturaRequest(@RequestBody CoberturaRequestDTO request){
-        /*
-         * Request: {ip:"", direccionDTO:{colonia, codigoPostal, municipio, estado}, idPeticion:1}
-         */
-        String ip = request.getIp();
-        DireccionDTO direccionDTO = request.getDireccionDTO();
-        int idPeticion = request.getIdPeticion();
-        // Rescatamos la información por separado
-
-        return ResponseEntity.ok().body("recibido");
-    }
-    
-}

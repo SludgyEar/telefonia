@@ -12,5 +12,5 @@ public interface IServicioDAO {   // Métodos generados por JPA
     
     List<Servicio> findAll(); // Método que obtiene todos los servicios
 
-    Optional<Servicio> findById(Short id);   // Método que obtiene un servicio por ID
+    Optional<Servicio> findById(Integer id);   // Método que obtiene un servicio por ID
 }

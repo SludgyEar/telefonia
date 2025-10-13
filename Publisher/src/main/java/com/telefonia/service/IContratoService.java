@@ -9,5 +9,5 @@ public interface IContratoService {
     // Contiene los mismos métodos que la interfaz DAO
     List<Contrato> findAll();
 
-    Optional<Contrato> findById(Short id);
+    Optional<Contrato> findById(Integer id);
 }

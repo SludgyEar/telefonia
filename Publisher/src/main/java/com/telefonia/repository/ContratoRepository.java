@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.telefonia.Entities.Contrato;
 
 @Repository
-public interface ContratoRepository extends CrudRepository<Contrato, Short> {
+public interface ContratoRepository extends CrudRepository<Contrato, Integer> {
     // AQUÍ SE ESCRIBEN LOS QUERYS PERSONALIZADOS
     // ES UNA INTERFACE POR LO QUE NO SE IMPLEMENTAN LOS MÉTODOS
 }

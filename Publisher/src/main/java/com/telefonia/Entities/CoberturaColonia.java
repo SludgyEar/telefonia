@@ -31,7 +31,7 @@ public class CoberturaColonia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cobertura_id")
-    private Short coberturaId;
+    private Integer coberturaId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "colonia_id", nullable = false, unique = true)

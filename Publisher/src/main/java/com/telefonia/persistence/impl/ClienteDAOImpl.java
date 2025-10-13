@@ -22,7 +22,7 @@ public class ClienteDAOImpl implements IClienteDAO {
     }
 
     @Override
-    public Optional<Cliente> findById(Short id) {
+    public Optional<Cliente> findById(Integer id) {
         return clienteRepository.findById(id);
     }
     

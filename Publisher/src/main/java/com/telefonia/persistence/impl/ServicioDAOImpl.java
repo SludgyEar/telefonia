@@ -22,7 +22,7 @@ public class ServicioDAOImpl implements IServicioDAO {
     }
 
     @Override
-    public Optional<Servicio> findById(Short id) {
+    public Optional<Servicio> findById(Integer id) {
         return servicioRepository.findById(id);
     }
     

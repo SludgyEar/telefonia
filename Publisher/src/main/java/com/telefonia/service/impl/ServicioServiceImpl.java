@@ -22,7 +22,7 @@ public class ServicioServiceImpl implements IServicioService {
     }
 
     @Override
-    public Optional<Servicio> findById(Short id) {
+    public Optional<Servicio> findById(Integer id) {
         return servicioDAO.findById(id);
     }
     

@@ -23,6 +23,7 @@ public class ClienteController {
     @GetMapping()   // Operaciones que se mapea directamente con /api/client
     public ResponseEntity<?> getClients(){
         return ResponseEntity.ok().body("Hay te van todos los clientes");
+        
     }
     @PostMapping()
     public ResponseEntity<?> postClient(@RequestBody ClienteDTO clienteDTO) throws URISyntaxException{

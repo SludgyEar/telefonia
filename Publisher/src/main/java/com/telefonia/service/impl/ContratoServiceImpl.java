@@ -22,7 +22,7 @@ public class ContratoServiceImpl implements IContratoService {
     }
 
     @Override
-    public Optional<Contrato> findById(Short id) {
+    public Optional<Contrato> findById(Integer id) {
         return contratoDAO.findById(id);
     }
     

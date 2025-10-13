@@ -22,7 +22,7 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public Optional<Cliente> findById(Short id) {
+    public Optional<Cliente> findById(Integer id) {
         return clienteDAO.findById(id);
     }
     

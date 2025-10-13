@@ -9,5 +9,5 @@ public interface IServicioService {
     // Contiene los mismos métodos que la interfaz DAO
     List<Servicio> findAll();
 
-    Optional<Servicio> findById(Short id);
+    Optional<Servicio> findById(Integer id);
 }

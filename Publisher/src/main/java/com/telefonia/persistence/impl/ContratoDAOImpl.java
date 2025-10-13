@@ -22,7 +22,7 @@ public class ContratoDAOImpl implements IContratoDAO {
     }
 
     @Override
-    public Optional<Contrato> findById(Short id) {
+    public Optional<Contrato> findById(Integer id) {
         return contratoRepository.findById(id);
     }
     

@@ -12,5 +12,5 @@ public interface IContratoDAO {   // Métodos generados por JPA
     
     List<Contrato> findAll(); // Método que obtiene todos los contratos
 
-    Optional<Contrato> findById(Short id);   // Método que obtiene un contrato por ID
+    Optional<Contrato> findById(Integer id);   // Método que obtiene un contrato por ID
 }
