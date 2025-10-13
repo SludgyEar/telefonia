@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.telefonia.controllers.dto.CoberturaRequestDTO;
+import com.telefonia.controllers.dto.DireccionDTO;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +27,17 @@ public class CoberturaController {
         *         peticiones para responderlas conforme estén disponibles.
      * 
      */
-    @PostMapping("path")
+    @PostMapping()
     public ResponseEntity<?> getCoberturaRequest(@RequestBody CoberturaRequestDTO request){
         /*
-         * Request: {ip:"", direccionDTO:{}, id:1}
+         * Request: {ip:"", direccionDTO:{colonia, codigoPostal, municipio, estado}, idPeticion:1}
          */
-        return null;
+        String ip = request.getIp();
+        DireccionDTO direccionDTO = request.getDireccionDTO();
+        int idPeticion = request.getIdPeticion();
+        // Rescatamos la información por separado
+
+        return ResponseEntity.ok().body("recibido");
     }
     
 }
