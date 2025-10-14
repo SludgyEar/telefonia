@@ -16,6 +16,7 @@ import com.telefonia.controllers.dto.CoberturaRequestDTO;
 import com.telefonia.controllers.dto.CoberturaResponseDTO;
 import com.telefonia.controllers.dto.DireccionDTO;
 import com.telefonia.persistence.ICoberturaDAO;
+import com.telefonia.persistence.IPeticionEsperaDAO;
 import com.telefonia.service.ICoberturaService;
 
 @Service
@@ -24,6 +25,8 @@ public class CoberturaServiceImpl implements ICoberturaService{
     // La capa de persistencia trabaja directamente con querys, se usa para obtener información para la respuesta
     @Autowired
     private ICoberturaDAO coberturaDAO;
+    @Autowired
+    private IPeticionEsperaDAO peticionEsperaDAO;   // Maneja peticiones sin cobertura
     // Maneja logs
     private static final Logger logger = LoggerFactory.getLogger(CoberturaServiceImpl.class);
     
@@ -55,13 +58,17 @@ public class CoberturaServiceImpl implements ICoberturaService{
     
     @Async
     @Override
+    /**
+     * Permite manejar distintas peticiones en un hilo diferente para no interferir con el proceso del servicio cuando se sature de
+     * solicitudes
+     */
     public CompletableFuture<CoberturaResponseDTO> consultarCoberturaAsync(CoberturaRequestDTO requestDTO) {
         return CompletableFuture.completedFuture(consultarCobertura(requestDTO));
     }
     
     private void validarDireccion(DireccionDTO direccionDTO) {
         /*
-         * Método privado usado solo para construir un error en caso de que los campos código postal o colonia sean nullos
+         * Método privado usado solo para construir un error en caso de que los campos código postal o colonia sean nulos
          */
         if (direccionDTO.getCodigoPostal() == null) {
             throw new IllegalArgumentException("El código postal es requerido");
@@ -90,7 +97,7 @@ public class CoberturaServiceImpl implements ICoberturaService{
             // Si no hay cobertura se indica el estado y la razón, además avisa que cuando el estado de cobertura cambie, se avisará al consultante
             response.setEstadoCobertura("NO");
             response.setNotas("No se encontró información de cobertura para esta dirección. Te dejaremos saber cuando eso cambie");
-            // TODO : Si no hay cobertura guardamos los datos en una tabla para atender la consulta cuando haya servicio
+            peticionEsperaDAO.guardarPeticionSinCobertura(request);
         }
         
         return response;

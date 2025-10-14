@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.telefonia.Entities.Municipio;
 
 public interface IMunicipioService {
-    // Métodos de búsqueda definidos por JPA
+    // Métodos de búsqueda definidos por JPA y CrudRepository
     List<Municipio> findAll();
     Optional<Municipio> findById(Integer id);
 }
