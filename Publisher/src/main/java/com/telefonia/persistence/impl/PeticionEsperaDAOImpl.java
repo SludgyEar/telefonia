@@ -14,7 +14,12 @@ import com.telefonia.repository.PeticionEsperaRepository;
 public class PeticionEsperaDAOImpl implements IPeticionEsperaDAO{
     @Autowired
     private PeticionEsperaRepository peticionEsperaRepository;
-
+    /**
+     * Se implementa la interfaz que recibe un request de cobertura, este request resultó en que
+     * la dirección consultada no tiene cobertura, por lo cual se guarda la petición
+     * para que pueda ser atendida después.
+     * Por defecto se agrega la fecha de creación y un estado de NO NOTIFICADO
+    */
     @Override
     public void guardarPeticionSinCobertura(CoberturaRequestDTO request){
         PeticionEspera peticionEspera = PeticionEspera.builder()

@@ -12,7 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/**
+ * Entidad que mapea la tabla de peticiones en espera, guarda los datos
+ * de un request que resultó SIN COBERTURA
+ */
 @Entity
 @Table(name = "peticiones_espera")
 @Data
