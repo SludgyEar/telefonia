@@ -107,7 +107,6 @@ public class DireccionController {
                 .latitud(colonia.getLatitud())
                 .longitud(colonia.getLongitud())
                 .municipio(colonia.getMunicipio())
-                .contratos(colonia.getContratos())
                 .coberturaColonia(colonia.getCoberturaColonia())
                 .build();
             return ResponseEntity.ok().body(coloniaDTO);

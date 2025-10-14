@@ -11,8 +11,12 @@ import com.telefonia.Entities.Colonia;
 @Repository
 public interface ColoniaRepository extends CrudRepository<Colonia, Integer> {
 
-    List<Colonia> findByCodigoPostal(Integer codigoPostal);
-    Optional<Colonia> findByCodigoPostalAndNombreContainingIgnoreCase(Integer codigoPostal, String colonia);
+    Optional<Colonia> findByCodigoPostalAndNombreIgnoreCase(Integer codigoPostal, String nombre);
+
     List<Colonia> findByNombreContainingIgnoreCaseAndMunicipioNombreContainingIgnoreCase(String colonia, String municipio);
+
+    List<Colonia> findByCodigoPostal(Integer codigoPostal);
+
+    List<Colonia> findByNombreContainingIgnoreCase(String colonia);
     
 }

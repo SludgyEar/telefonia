@@ -15,4 +15,6 @@ public class CoberturaResponseDTO {
     private int idPeticion;
     private DireccionDTO direccionDTO;
     private String estadoCobertura; // SI, NO, PARCIAL, PROXIMAMANTE
+    private String notas;
+    private String fechaConsulta;
 }

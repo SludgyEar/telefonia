@@ -8,8 +8,8 @@ import com.telefonia.controllers.dto.DireccionDTO;
 public interface ICoberturaDAO {
     
     Optional<CoberturaColonia> consultarCoberturaPorDireccion(DireccionDTO direccionDTO);
-    Optional<CoberturaColonia> buscarPorCodigoPostalYColonia(Integer codigoPostal, String colonia);
-    Optional<CoberturaColonia> buscarPorCodigoPostal(Integer codigoPostal);
-    Optional<CoberturaColonia> buscarPorMunicipio(String municipio);
+    Optional<CoberturaColonia> buscarPorCodigoPostalYColoniaExacta(Integer codigoPostal, String colonia);
+    Optional<CoberturaColonia> buscarPorColoniaAproximada(String colonia, String municipio);
+    Optional<CoberturaColonia> buscarPrimeraCoberturaPorCodigoPostal(Integer codigoPostal);
 
 }

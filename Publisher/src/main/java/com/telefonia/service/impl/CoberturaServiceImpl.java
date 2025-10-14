@@ -1,5 +1,6 @@
 package com.telefonia.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
@@ -65,13 +66,17 @@ public class CoberturaServiceImpl implements ICoberturaService{
     private CoberturaResponseDTO construirRespuesta(CoberturaRequestDTO request, Optional<CoberturaColonia> coberturaOpt) {
         CoberturaResponseDTO response = new CoberturaResponseDTO();
         response.setIdPeticion(request.getIdPeticion());
+        response.setFechaConsulta(LocalDateTime.now().toString());
         response.setDireccionDTO(request.getDireccionDTO());
         
         if (coberturaOpt.isPresent()) {
             CoberturaColonia cobertura = coberturaOpt.get();
             response.setEstadoCobertura(cobertura.getEstadoCobertura().name());
+            response.setNotas("Petición Atendida");
         } else {
             response.setEstadoCobertura("NO");
+            response.setNotas("No se encontró información de cobertura para esta dirección. Colocando en lista de espera...");
+            // Aquí, si no hay cobertura guardamos en una tabla para despues revisarla
         }
         
         return response;
@@ -80,7 +85,9 @@ public class CoberturaServiceImpl implements ICoberturaService{
     private CoberturaResponseDTO construirRespuestaError(CoberturaRequestDTO request, String error) {
         CoberturaResponseDTO response = new CoberturaResponseDTO();
         response.setIdPeticion(request.getIdPeticion());
+        response.setFechaConsulta(LocalDateTime.now().toString());
         response.setEstadoCobertura("ERROR");
+        response.setNotas("Error en la consulta: " + error);
         response.setDireccionDTO(request.getDireccionDTO());
         return response;
     }

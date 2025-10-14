@@ -1,8 +1,6 @@
 package com.telefonia.Entities;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,7 +9,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -52,10 +49,6 @@ public class Colonia {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "municipio", nullable = false)
     private Municipio municipio;
-
-    @OneToMany(mappedBy = "colonia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Contrato> contratos = new ArrayList<>();
 
     @OneToOne(mappedBy = "colonia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private CoberturaColonia coberturaColonia;

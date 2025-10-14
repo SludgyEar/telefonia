@@ -1,11 +1,8 @@
 package com.telefonia.controllers.dto;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.telefonia.Entities.CoberturaColonia;
-import com.telefonia.Entities.Contrato;
 import com.telefonia.Entities.Municipio;
 
 import lombok.AllArgsConstructor;
@@ -31,9 +28,6 @@ public class ColoniaDTO {
     private BigDecimal longitud;
 
     private Municipio municipio;
-
-    @Builder.Default
-    private List<Contrato> contratos = new ArrayList<>();
 
     private CoberturaColonia coberturaColonia;
 }
