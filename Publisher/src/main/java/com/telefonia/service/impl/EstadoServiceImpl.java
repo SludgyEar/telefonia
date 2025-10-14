@@ -12,7 +12,9 @@ import com.telefonia.service.IEstadoService;
 
 @Service
 public class EstadoServiceImpl implements IEstadoService{
-
+    /*
+     * Implementación de métodos de búsqueda
+     */
     @Autowired
     private IEstadoDAO estadoDAO;
 

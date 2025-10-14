@@ -19,6 +19,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+/**
+ * Representa una colonia dentro de un municipio.
+ *
+ * Contiene información geográfica y administrativa: nombre, tipo de
+ * asentamiento, código postal y coordenadas (latitud/longitud). Cada
+ * {@link Colonia} pertenece a un {@link Municipio} (relación ManyToOne) y
+ * puede tener una entidad asociada {@link CoberturaColonia} que indica el
+ * estado de cobertura del servicio en esa colonia.
+ *
+ * Mapeada a la tabla `colonias`.
+ */
 @Setter
 @Getter
 @Builder

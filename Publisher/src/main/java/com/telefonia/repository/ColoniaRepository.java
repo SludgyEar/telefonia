@@ -10,7 +10,10 @@ import com.telefonia.Entities.Colonia;
 
 @Repository
 public interface ColoniaRepository extends CrudRepository<Colonia, Integer> {
-
+    /**
+     * Repositorio para la entidad {@link Colonia}.
+     * Proporciona métodos para consultar colonias por diferentes criterios, utilizando querys jpa
+     */
     Optional<Colonia> findByCodigoPostalAndNombreIgnoreCase(Integer codigoPostal, String nombre);
 
     List<Colonia> findByNombreContainingIgnoreCaseAndMunicipioNombreContainingIgnoreCase(String colonia, String municipio);

@@ -13,9 +13,13 @@ import java.util.List;
 
 @Repository
 public interface CoberturaColoniaRepository extends CrudRepository <CoberturaColonia, Integer>{
-
-    Optional<CoberturaColonia> findByColonia(Colonia colonia);
-    List<CoberturaColonia> findByColoniaMunicipioNombreContainingIgnoreCase(String municipio);
+    /**
+     * Repositorio para la entidad {@link CoberturaColonia}.
+     * Proporciona métodos para consultar cobertura de colonias por diferentes criterios,
+     * utilizando querys jpa
+     */
+    Optional<CoberturaColonia> findByColonia(Colonia colonia);  // Búsca cobertura por colonia
+    List<CoberturaColonia> findByColoniaMunicipioNombreContainingIgnoreCase(String municipio);  // Busca cobertura por colonias relacionada al nombre del municipio
 
 }
 

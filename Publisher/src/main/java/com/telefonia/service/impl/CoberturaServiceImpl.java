@@ -21,9 +21,10 @@ import com.telefonia.service.ICoberturaService;
 @Service
 @Transactional
 public class CoberturaServiceImpl implements ICoberturaService{
+    // La capa de persistencia trabaja directamente con querys, se usa para obtener información para la respuesta
     @Autowired
     private ICoberturaDAO coberturaDAO;
-    
+    // Maneja logs
     private static final Logger logger = LoggerFactory.getLogger(CoberturaServiceImpl.class);
     
     @Override
@@ -31,18 +32,22 @@ public class CoberturaServiceImpl implements ICoberturaService{
         logger.info("Consultando cobertura para petición: {}", requestDTO.getIdPeticion());
         
         try {
-            // 1. Validar datos de entrada
+            // Validar datos de dirección
             validarDireccion(requestDTO.getDireccionDTO());
             
-            // 2. Consultar cobertura usando DAO
+            // Consultar cobertura usando la capa DAO
             Optional<CoberturaColonia> coberturaOpt = coberturaDAO.consultarCoberturaPorDireccion(
                 requestDTO.getDireccionDTO()
             );
             
-            // 3. Construir respuesta
+            // Construir respuesta
             return construirRespuesta(requestDTO, coberturaOpt);
             
         } catch (Exception e) {
+            /*
+             * Si falla se escribe en el log y se construye una respuesta en base al error,
+             * así siempre se atienden las consultas, sea válida o no
+             */
             logger.error("Error consultando cobertura para petición: {}", requestDTO.getIdPeticion(), e);
             return construirRespuestaError(requestDTO, e.getMessage());
         }
@@ -55,6 +60,9 @@ public class CoberturaServiceImpl implements ICoberturaService{
     }
     
     private void validarDireccion(DireccionDTO direccionDTO) {
+        /*
+         * Método privado usado solo para construir un error en caso de que los campos código postal o colonia sean nullos
+         */
         if (direccionDTO.getCodigoPostal() == null) {
             throw new IllegalArgumentException("El código postal es requerido");
         }
@@ -64,25 +72,32 @@ public class CoberturaServiceImpl implements ICoberturaService{
     }
     
     private CoberturaResponseDTO construirRespuesta(CoberturaRequestDTO request, Optional<CoberturaColonia> coberturaOpt) {
+        /*
+         * Empezamos a construir la respuesta adjuntando el id de la petición que se responde,
+         * la fecha en que se hace la consulta y la dirección que se consultaba
+         */
         CoberturaResponseDTO response = new CoberturaResponseDTO();
         response.setIdPeticion(request.getIdPeticion());
         response.setFechaConsulta(LocalDateTime.now().toString());
         response.setDireccionDTO(request.getDireccionDTO());
         
         if (coberturaOpt.isPresent()) {
+            // Si se encuentra cobertura se coloca la intensidad de señal (estado cobertura) y se confirma en las notas que la consulta fue atendida
             CoberturaColonia cobertura = coberturaOpt.get();
             response.setEstadoCobertura(cobertura.getEstadoCobertura().name());
             response.setNotas("Petición Atendida");
         } else {
+            // Si no hay cobertura se indica el estado y la razón, además avisa que cuando el estado de cobertura cambie, se avisará al consultante
             response.setEstadoCobertura("NO");
-            response.setNotas("No se encontró información de cobertura para esta dirección. Colocando en lista de espera...");
-            // Aquí, si no hay cobertura guardamos en una tabla para despues revisarla
+            response.setNotas("No se encontró información de cobertura para esta dirección. Te dejaremos saber cuando eso cambie");
+            // TODO : Si no hay cobertura guardamos los datos en una tabla para atender la consulta cuando haya servicio
         }
         
         return response;
     }
     
     private CoberturaResponseDTO construirRespuestaError(CoberturaRequestDTO request, String error) {
+        // Método de apoyo para construir una respuesta en base a una petición errónea
         CoberturaResponseDTO response = new CoberturaResponseDTO();
         response.setIdPeticion(request.getIdPeticion());
         response.setFechaConsulta(LocalDateTime.now().toString());

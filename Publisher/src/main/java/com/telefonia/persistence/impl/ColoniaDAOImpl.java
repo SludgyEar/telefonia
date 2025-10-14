@@ -12,7 +12,7 @@ import com.telefonia.repository.ColoniaRepository;
 
 @Component
 public class ColoniaDAOImpl implements IColoniaDAO {
-    // Inyectamos el repositorio
+    // Inyectamos el repositorio para hacer uso de los querys JPA
     @Autowired
     private ColoniaRepository coloniaRepository;
 

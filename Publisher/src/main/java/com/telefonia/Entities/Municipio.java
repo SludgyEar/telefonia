@@ -22,6 +22,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Representa un municipio dentro de un estado.
+ *
+ * Contiene identificador, nombre y rango de códigos postales. Cada
+ * {@link Municipio} pertenece a un {@link Estado} y puede contener una
+ * lista de {@link Colonia}s (relación OneToMany). También puede existir
+ * una {@link CoberturaMunicipio} asociada para describir el estado de
+ * cobertura a nivel municipal.
+ *
+ * Incluye el enum {@link HusoHorario} para indicar la zona horaria del
+ * municipio.
+ *
+ * Mapeada a la tabla `municipios`.
+ */
 @Setter
 @Getter
 @Builder

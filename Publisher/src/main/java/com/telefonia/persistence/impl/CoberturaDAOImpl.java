@@ -22,16 +22,16 @@ public class CoberturaDAOImpl implements ICoberturaDAO{
 
     @Override
     public Optional<CoberturaColonia> consultarCoberturaPorDireccion(DireccionDTO direccionDTO) {
+        /*
+         * Método que se apoya de los métodos de búsqueda para buscar cobertura en una dirección dada
+         * Si no se encuentra por código postal y colonia exacta, se busca por colonia y municipio y si no se puede
+         * localizar exactamente la dirección se hace la consulta en el código postal ingresado, lo cual sería un aproximado
+        */
         Optional<CoberturaColonia> cobertura;
-        
-        cobertura = buscarPorCodigoPostalYColoniaExacta(
-                Integer.valueOf(direccionDTO.getCodigoPostal()),
-                direccionDTO.getColonia());
+        cobertura = buscarPorCodigoPostalYColoniaExacta(Integer.valueOf(direccionDTO.getCodigoPostal()), direccionDTO.getColonia());
 
         if (cobertura.isEmpty()) {
-            cobertura = buscarPorColoniaAproximada(
-                    direccionDTO.getColonia(),
-                    direccionDTO.getMunicipio());
+            cobertura = buscarPorColoniaAproximada(direccionDTO.getColonia(), direccionDTO.getMunicipio());
         }
         if (cobertura.isEmpty()) {
             cobertura = buscarPrimeraCoberturaPorCodigoPostal(Integer.valueOf(direccionDTO.getCodigoPostal()));
@@ -41,29 +41,31 @@ public class CoberturaDAOImpl implements ICoberturaDAO{
     }
     @Override
     public Optional<CoberturaColonia> buscarPorCodigoPostalYColoniaExacta(Integer codigoPostal, String colonia) {
-        return coloniaRepository.findByCodigoPostalAndNombreIgnoreCase(codigoPostal, colonia)
-                .flatMap(col -> coberturaColoniaRepository.findByColonia(col));
+        // Búsca cobertura relacionada a un código postal y una colonia
+        return coloniaRepository.findByCodigoPostalAndNombreIgnoreCase(codigoPostal, colonia).flatMap(col -> coberturaColoniaRepository.findByColonia(col));
     }
     @Override
     public Optional<CoberturaColonia> buscarPorColoniaAproximada(String colonia, String municipio) {
         // Buscar por nombre de colonia y municipio
-        List<Colonia> colonias = coloniaRepository
-                .findByNombreContainingIgnoreCaseAndMunicipioNombreContainingIgnoreCase(
-                        colonia, municipio);
-
+        List<Colonia> colonias = coloniaRepository.findByNombreContainingIgnoreCaseAndMunicipioNombreContainingIgnoreCase(colonia, municipio);
         if (!colonias.isEmpty()) {
-            // Tomar la primera coincidencia
+            // Si la lista no está vacía, se toma la primer colonia para hacer la búsqueda de cobertura
             return coberturaColoniaRepository.findByColonia(colonias.get(0));
         }
         return Optional.empty();
     }
     @Override
     public Optional<CoberturaColonia> buscarPrimeraCoberturaPorCodigoPostal(Integer codigoPostal) {
-        // Buscar TODAS las colonias con ese CP y tomar la primera que tenga cobertura
+        // Busca TODAS las colonias con ese CP y toma la primera con cobertura
         List<Colonia> colonias = coloniaRepository.findByCodigoPostal(codigoPostal);
 
         for (Colonia colonia : colonias) {
             Optional<CoberturaColonia> cobertura = coberturaColoniaRepository.findByColonia(colonia);
+            /*
+             * Para mandar la primer colonia con cobertura relacionada al CP iteramos la
+             * lista de colonias pertenecientes al CP dado.
+             * Al encontrar la primer coincidencia entra al if y se rompe el ciclo con el return
+             */ 
             if (cobertura.isPresent()) {
                 return cobertura;
             }
