@@ -36,7 +36,7 @@ public class DisponibilidadController {
     {
         disponibilidadService.registrarSolicitud(request.getIdSolicitud());
 
-        BrookerRequest br = new BrookerRequest(request.getIdSolicitud(), "direccion", request, url);
+        BrookerRequest br = new BrookerRequest(request.getIdSolicitud(), request, url);
         brookerService.enviarAlBrooker(br);
         return request.getIdSolicitud();
     }
@@ -46,7 +46,7 @@ public class DisponibilidadController {
     {
         disponibilidadService.registrarSolicitud(request.getIdSolicitud());
 
-        BrookerRequest br = new BrookerRequest(request.getIdSolicitud(), "coordenadas", request, url);
+        BrookerRequest br = new BrookerRequest(request.getIdSolicitud(), request, url);
         brookerService.enviarAlBrooker(br);
         return request.getIdSolicitud();
     }

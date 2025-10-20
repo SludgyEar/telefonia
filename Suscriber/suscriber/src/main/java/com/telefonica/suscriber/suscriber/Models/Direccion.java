@@ -1,5 +1,9 @@
 package com.telefonica.suscriber.suscriber.Models;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Direccion {
     private String id;
     private String nombre;

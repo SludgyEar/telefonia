@@ -1,5 +1,9 @@
 package com.telefonica.suscriber.suscriber.Models;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Disponibilidad
 {
     private String idSolicitud;
