@@ -2,8 +2,11 @@ package com.telefonica.suscriber.suscriber.Service;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.stereotype.Service;
+
 import com.telefonica.suscriber.suscriber.Models.Disponibilidad;
 
+@Service
 public class DisponibilidadService {
     private final FileStorageService storageService;
     private final ConcurrentHashMap<String, Disponibilidad> solicitudes;
