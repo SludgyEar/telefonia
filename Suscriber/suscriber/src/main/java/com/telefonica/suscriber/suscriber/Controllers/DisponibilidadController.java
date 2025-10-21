@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/disponibilidad")
 public class DisponibilidadController {
     private final DisponibilidadService disponibilidadService;
     private final BrookerService brookerService;
@@ -51,7 +51,7 @@ public class DisponibilidadController {
         return request.getIdSolicitud();
     }
 
-    @GetMapping("/disponibilidad/{id}")
+    @GetMapping("/status/{id}")
     public Disponibilidad verificar(@PathVariable String id) {
         return disponibilidadService.obtenerEstado(id);
     }

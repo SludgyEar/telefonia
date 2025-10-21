@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/consultas-pendientes")
+@RequestMapping("/confirmation")
 public class BrookerListenerController {
     private final DisponibilidadService disponibilidad;
     
