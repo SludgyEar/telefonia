@@ -6,8 +6,7 @@ import java.util.Optional;
 import com.telefonia.Entities.Estado;
 
 public interface IEstadoService {
-    // Contiene los mismos métodos que la interfaz DAO
+    // Métodos de búsqueda definidos por JPA
     List<Estado> findAll();
-
     Optional<Estado> findById(Byte clave);
 }

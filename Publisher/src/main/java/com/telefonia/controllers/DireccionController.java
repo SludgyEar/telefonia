@@ -107,18 +107,13 @@ public class DireccionController {
                 .latitud(colonia.getLatitud())
                 .longitud(colonia.getLongitud())
                 .municipio(colonia.getMunicipio())
-                .contratos(colonia.getContratos())
                 .coberturaColonia(colonia.getCoberturaColonia())
                 .build();
             return ResponseEntity.ok().body(coloniaDTO);
         }
         return ResponseEntity.notFound().build();
     }
-    /**
-     * Funciones que regresan un estado, municipio o colonia dado un nombre
-     * @param id
-     * @return 
-    */
+
     
 
 

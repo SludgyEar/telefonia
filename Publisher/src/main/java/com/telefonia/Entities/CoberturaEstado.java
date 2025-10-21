@@ -20,6 +20,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidad que representa la cobertura de un estado.
+ *
+ * Relaciona una {@link Estado} con su estado de cobertura, notas y la fecha de
+ * última actualización. Utiliza un enum interno {@link EstadoCobertura}
+ * para indicar si la cobertura es completa, parcial, inexistente o
+ * "próximamente".
+ *
+ * Esta entidad está mapeada a la tabla `cobertura_estado`.
+ */
 @Setter
 @Getter
 @Builder
@@ -31,7 +41,7 @@ public class CoberturaEstado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cobertura_id")
-    private Short coberturaId;
+    private Integer coberturaId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estado_id", nullable = false, unique = true)

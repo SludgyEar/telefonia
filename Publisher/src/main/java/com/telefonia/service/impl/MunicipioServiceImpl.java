@@ -12,7 +12,9 @@ import com.telefonia.service.IMunicipioService;
 
 @Service
 public class MunicipioServiceImpl implements IMunicipioService {
-
+    /*
+     * Implementación de métodos de búsqueda
+     */
     @Autowired
     private IMunicipioDAO municipioDAO;
 

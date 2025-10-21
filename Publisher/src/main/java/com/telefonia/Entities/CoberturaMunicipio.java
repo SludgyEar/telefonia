@@ -20,6 +20,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Entidad que representa la cobertura de un municipio.
+ *
+ * Relaciona un {@link Municipio} con su estado de cobertura, notas y la fecha
+ * de última actualización. El enum {@link EstadoCobertura} describe los
+ * posibles estados de cobertura: SI, NO, PARCIAL o PROXIMAMENTE.
+ *
+ * Mapeada a la tabla `cobertura_municipio`.
+ */
 @Setter
 @Getter
 @Builder
@@ -31,7 +40,7 @@ public class CoberturaMunicipio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cobertura_id")
-    private Short coberturaId;
+    private Integer coberturaId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "municipio_id", nullable = false, unique = true)

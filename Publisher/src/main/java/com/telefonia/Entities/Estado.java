@@ -18,6 +18,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Representa un estado federativo.
+ *
+ * Contiene la clave del estado, nombre, abreviación y rango de códigos
+ * postales (cpMin, cpMax). Un {@link Estado} tiene muchos
+ * {@link Municipio}s (relación OneToMany) y puede tener asociado un
+ * {@link CoberturaEstado} que indica la cobertura a nivel estatal.
+ *
+ * Mapeada a la tabla `estados`.
+ */
 @Setter
 @Getter
 @Builder

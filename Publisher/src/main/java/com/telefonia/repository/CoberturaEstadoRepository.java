@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.telefonia.Entities.CoberturaEstado;
 @Repository
-public interface CoberturaEstadoRepository extends CrudRepository <CoberturaEstado, Short>{
+public interface CoberturaEstadoRepository extends CrudRepository <CoberturaEstado, Integer>{
     
 }

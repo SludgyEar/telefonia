@@ -6,8 +6,7 @@ import java.util.Optional;
 import com.telefonia.Entities.Colonia;
 
 public interface IColoniaService {
-    // Contiene los mismos métodos que la interfaz DAO
+    // Métodos de búsqueda definidos por JPA
     List<Colonia> findAll();
-
     Optional<Colonia> findById(Integer id);
 }

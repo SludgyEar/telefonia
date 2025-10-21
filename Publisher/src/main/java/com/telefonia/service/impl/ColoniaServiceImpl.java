@@ -12,7 +12,9 @@ import com.telefonia.service.IColoniaService;
 
 @Service
 public class ColoniaServiceImpl implements IColoniaService {
-
+    /*
+     * Implementación de métodos de búsqueda
+     */
     @Autowired
     private IColoniaDAO coloniaDAO;
 
