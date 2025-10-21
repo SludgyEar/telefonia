@@ -4,11 +4,11 @@ package com.telefonica.pubsub.broker.dto;
 
 public class ClientRequestDTO {
 	
-	 private String idCliente;
-	 public String getIdCliente() {
+	 private Long idCliente;
+	 public Long getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
 	public String getIpCliente() {

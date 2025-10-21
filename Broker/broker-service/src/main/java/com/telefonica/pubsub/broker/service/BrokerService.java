@@ -42,7 +42,6 @@ public interface  BrokerService {
 	// No devuelve nada (por eso void), solo actualiza datos en la base.
     void procesarRespuestaPublisher(PublisherResponseDTO response);
     
-
-	
+	ClientResponseDTO consultarPeticion (ClientRequestDTO requestDTO);	
 
 }

@@ -8,6 +8,7 @@ import com.telefonica.pubsub.broker.dto.PublisherResponseDTO;
 import com.telefonica.pubsub.broker.service.BrokerService;
 
 
+
 @RestController
 @RequestMapping("/publisher")
 public class PublisherEndpoint {
@@ -19,5 +20,4 @@ public class PublisherEndpoint {
         brokerService.procesarRespuestaPublisher(response);
     }
 	
-
 }

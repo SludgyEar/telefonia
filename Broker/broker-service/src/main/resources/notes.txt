@@ -26,7 +26,7 @@ Posible tablas (para pruebas)
 
 CREATE TABLE peticion (
   id_peticion INT AUTO_INCREMENT PRIMARY KEY,
-  id_cliente VARCHAR(50),
+  id_cliente INT,
   ip_cliente VARCHAR(50),
   json_data TEXT,
   estado VARCHAR(20) DEFAULT 'PENDIENTE'

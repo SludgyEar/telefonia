@@ -3,7 +3,7 @@ package com.telefonica.pubsub.broker.dto;
 public class PublisherResponseDTO {
 	
 	 private Long idPeticion;
-	 private String idCliente;
+	 private Long idCliente;
 	 private String ipCliente;
 	 private String respuesta;
 	 
@@ -13,10 +13,10 @@ public class PublisherResponseDTO {
 	public void setIdPeticion(Long  idPeticion) {
 		this.idPeticion = idPeticion;
 	}
-	public String getIdCliente() {
+	public Long getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
 	public String getIpCliente() {

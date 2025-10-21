@@ -1,11 +1,11 @@
 package com.telefonica.pubsub.broker.dto;
 
 public class ClientResponseDTO {
-	 private String idCliente;
+	 private Long idCliente;
 	 private String ipCliente;
 	 private String mensaje;
 	 
-	 public ClientResponseDTO(String idCliente, String ipCliente, String mensaje) {
+	 public ClientResponseDTO(Long idCliente, String ipCliente, String mensaje) {
 	        this.idCliente = idCliente;
 	        this.ipCliente = ipCliente;
 	        this.mensaje = mensaje;
@@ -13,10 +13,10 @@ public class ClientResponseDTO {
 	 
 	 
 	 
-	public String getIdCliente() {
+	public Long getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
 	public String getIpCliente() {

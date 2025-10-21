@@ -28,6 +28,8 @@ public class BrokerServiceBusiness implements BrokerService {
 	
 	@Autowired
     private PeticionRepository peticionRepository;
+    private CurlPublisherService curlPublisherService;
+    private CurlSubscriberService curlSubscriberService;
 	
     // Crear una nueva petición
     @Override
@@ -43,6 +45,10 @@ public class BrokerServiceBusiness implements BrokerService {
         
         // Responder al cliente
         // return new ClienteResponseDTO("C001", "192.168.1.10", "Petición procesada");
+
+        // curl endpoint marco para hacer la peticio y checar si tiene servicio 
+        curlPublisherService.enviarCurl("ID",request.getJson());
+
         return new ClientResponseDTO(
                 request.getIdCliente(),
                 request.getIpCliente(),
@@ -58,6 +64,29 @@ public class BrokerServiceBusiness implements BrokerService {
             peticion.setEstado("PROCESADO");
             peticionRepository.save(peticion);
         }
+        // Curl a Leo(cliente) para que pueda ver el nuevo estatus de su request /consultas-pendientes/response
+        curlSubscriberService.enviarCurl(response.getIdCliente().toString(), peticion.getJsonData());
+    }
+
+
+    // Endpoint para que el cliente mande la peticion que quiere verificar y ver si ya tiene actualizacion
+    @Override
+    public ClientResponseDTO consultarPeticion(ClientRequestDTO requestDTO) {
+        /// Agregar curl para el endpoint del marco primero hacemos un select con idcliente 
+        /// y ver si el estado sigue en pendiente prosigue sino se responde con lo que tiene la tabla
+        /// /api/cobertura/consultar 
+        Peticion peticion = peticionRepository.findById(requestDTO.getIdCliente()).orElse(null);
+        if (peticion != null && peticion.getEstado() == "PENDIENTE")
+        {
+            curlPublisherService.enviarCurl(peticion.getIdPeticion().toString(),peticion.getJsonData());
+
+            return new ClientResponseDTO(peticion.getIdCliente(), 
+                peticion.getIpCliente(), 
+                curlPublisherService.getResponseBody());
+        }
+        return new ClientResponseDTO(peticion.getIdCliente(), 
+                peticion.getIpCliente(), 
+                peticion.getEstado()); 
     }
 
 }
