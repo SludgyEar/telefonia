@@ -11,7 +11,7 @@ public class Peticion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPeticion;
 
-    private String idCliente;
+    private Long idCliente;
     private String ipCliente;
 
     @Lob
@@ -22,8 +22,8 @@ public class Peticion {
     public Long getIdPeticion() { return idPeticion; }
     public void setIdPeticion(Long idPeticion) { this.idPeticion = idPeticion; }
 
-    public String getIdCliente() { return idCliente; }
-    public void setIdCliente(String idCliente) { this.idCliente = idCliente; }
+    public Long getIdCliente() { return idCliente; }
+    public void setIdCliente(Long idCliente) { this.idCliente = idCliente; }
 
     public String getIpCliente() { return ipCliente; }
     public void setIpCliente(String ipCliente) { this.ipCliente = ipCliente; }
